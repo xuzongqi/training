@@ -2,6 +2,7 @@
 力扣算法第一题
 
 
+
 int* twoSum(int* nums, int numsSize, int target, int* returnSize)
 {
 	for (int i = 0; i < numsSize; i++)
@@ -15,7 +16,6 @@ int* twoSum(int* nums, int numsSize, int target, int* returnSize)
 				str = (char*)malloc(5 * sizeof(char));
 				strcpy(str, "[i,j]");
 				return str;*/
-				
 				//难点，不知如何定义数组
 				*returnSize = 2;//空间为2
 				int* ans = (int*)malloc(2 * sizeof(int));
