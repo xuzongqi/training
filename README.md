@@ -116,3 +116,64 @@ int main()
 	}
 	return 0;
 }
+
+//罗马数字换算
+
+int romanToInt(char* s)
+{
+	
+	int sum = 0;//求和
+	int j= strlen(s);
+	//思路：把字符数组转换成数字数组
+	int n[16];
+	for (int i = 0; i < j; i++)
+	{
+		//列情况
+		switch (s[i])
+		{
+		case 'I':
+			n[i] = 1;
+			break;
+		case 'V':
+			n[i] = 5;
+			break;
+		case 'X':
+			n[i] = 10;
+			break;
+		case 'L':
+			n[i] = 50;
+			break;
+		case 'C':
+			n[i] = 100;
+			break;
+		case 'D':
+			n[i] = 500;
+			break;
+		case 'M':
+			n[i] = 1000;
+			break;
+		default:
+			break;
+		}
+	}
+	for (int k = 0; k < j ; k++)
+	{
+		if (n[k] >= n[k + 1])
+		{
+			sum += n[k];
+		}
+		else
+		{
+			sum -= n[k];
+		}
+	}
+	return sum;
+}
+
+int main()
+{
+	char s[8] = {"III"};
+
+	printf("%d", romanToInt(s));
+	return 0;
+}
