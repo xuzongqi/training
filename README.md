@@ -250,3 +250,36 @@ int main()
 	 printf("%d", removeElement(arr, 4, 4));
 	 return 0;
  }
+
+ //35题
+ int searchInsert(int* nums, int numsSize, int target)
+ {
+	 for (int i = 0; i < numsSize; i++)
+	 {
+		 if (nums[i] == target)
+		 {
+			 return i;
+		 }
+	 }
+	 //不存在时
+	 if (target < nums[0])
+		 return 0;
+	 for (int j = 0; j < numsSize-1; j++)
+	 {
+		 if (nums[j] <= target && target < nums[j + 1])
+		 {
+			 return j + 1;
+		 }
+	 }
+	 return numsSize;
+ }
+
+
+ int main()
+ {
+	 int arr[4] = { 1,3,5,6 };
+	 printf("%d", searchInsert(arr, 4, 0));
+	 return 0;
+ }
+
+
