@@ -177,3 +177,47 @@ int main()
 	printf("%d", romanToInt(s));
 	return 0;
 }
+
+//27题
+ int removeDuplicates(int* nums, int numsSize)
+ {
+	 int number = numsSize;
+	 for (int i = 0; i < numsSize-1; i++)
+	 {
+		 if (nums[i] == nums[i + 1])
+		 {
+			 nums[i + 1] = NULL;
+			 number -= 1;
+		 }
+	 }//计算number的数值
+	 int newnum[30000];
+	 int* p = &nums[0];
+	 int* q = &newnum[0];//创立新数组
+	 for (p,q; p < &nums[0] +numsSize; )
+	 {
+		 if (*p != NULL)
+		 {
+			*q = *p;
+			p++;
+			q++;
+		 }	 
+		 else
+		 {
+			 p++;
+		 }
+	 }
+	 
+	 for (int k = 0; k < number; k++)
+	 {
+		 printf("%d  ", newnum[k]);
+	 }
+	 printf("----------------------------------\n");
+	 return number;
+ }
+
+ int main()
+ {
+	 int arr[5] = { 1,3,4,4 };
+	 printf("%d", removeDuplicates(arr, 5));
+	 return 0;
+ }
