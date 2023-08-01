@@ -221,3 +221,32 @@ int main()
 	 printf("%d", removeDuplicates(arr, 5));
 	 return 0;
  }
+
+ //第27题
+  int removeElement(int* nums, int numsSize, int val)
+ {
+	 int* p = &nums[0];//别忘写&取地址
+	 int number = 0;
+	 for (int i = 0; i < numsSize; i++)
+	 {
+		 if (nums[i] == val)
+		 {
+
+		 }
+		 else
+		 {
+			 *p = nums[i];
+			 p++;
+			 number++;
+		 }
+	 }
+	 return number;
+ }
+
+
+ int main()
+ {
+	 int arr[4] = { 4,4,4,4 };
+	 printf("%d", removeElement(arr, 4, 4));
+	 return 0;
+ }
