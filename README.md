@@ -282,4 +282,43 @@ int main()
 	 return 0;
  }
 
+//88题
+void merge(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n)
+{
+	int* end1 = &nums1[0] + m - 1;
+	int* end2 = &nums2[0] + n - 1;
+	int* end = &nums1[0] + m + n - 1;//一开始end与end1不同
+	while (end1 >= &nums1[0] && end2 >= &nums2[0])
+	{
+		if (*end1 >= *end2)
+		{
+			*end = *end1;
+			end--;
+			end1--;//仅最后会重叠
+		}
+		else 
+		{
+			*end = *end2;
+			end--;
+			end2--;
+		}
+	}
+	while (end2 >= &nums2[0])
+	{
+		*end = *end2;
+		end--;
+		end2--;
+	}
+}
 
+int main()//测试的代码
+{
+	int nums1[6] = { 1,2,8,0,0,0 };
+	int nums2[3] = { 2,5,6 };
+	merge(nums1, 6, 3, nums2, 3, 3);
+	for (int i = 0; i < 6; i++)
+	{
+		printf("%d  ", nums1[i]);
+	}
+	return 0;
+}
