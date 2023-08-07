@@ -322,3 +322,30 @@ int main()//测试的代码
 	}
 	return 0;
 }
+
+
+//94题
+struct TreeNode
+{
+	int val;
+	struct TreeNode* left,*right;
+};
+
+void preorder(struct TreeNode* root, int* res, int* resSize)
+{
+	//resSize作为指针，便于更改resSize所对应的值
+	//res是数组
+	if (root == NULL)return;
+	preorder(root->left, res, resSize);
+	res[*(resSize)] = root->val;//挨个赋值
+	(*resSize)++;//
+	preorder(root->right, res, resSize);
+}
+
+int* inorderTraversal(struct TreeNode*root,int*returnSize)
+{	
+	int* res = (int*)malloc(2000 * sizeof(int));
+	*returnSize = 0;
+	preorder(root, res, returnSize);//初值为零，为数组第一个元素
+	return res;
+}
