@@ -349,3 +349,66 @@ int* inorderTraversal(struct TreeNode*root,int*returnSize)
 	preorder(root, res, returnSize);//初值为零，为数组第一个元素
 	return res;
 }
+
+
+//回溯算法
+//77题
+//1.定义全局变量，一个存放结果，一个存放存结果的数组
+//1.两个整型变为全局是便于迭代。
+int* path;
+int pathTop;
+int** ans;
+int ansTop;
+
+void backtracking(int n, int k, int startIndex)
+{
+	//加上终止条件,深度为k时，把结果存入数组
+	if (pathTop == k)
+	{
+		//因为直接将path数组的地址放入二维数组ans中
+		// 会使path数组中的值随着回溯而变化
+		//所以要创建新的数组存储path的值
+		int* temp = (int*)malloc(k * sizeof(int));
+		//能存k个int值，是一维数组
+		int i;
+		for (i = 0; i < k; i++)
+		{
+			temp[i] = path[i];//每项依次赋值
+		}
+		ans[ansTop] = temp;//ans[0]={1,2,3,4,...,k};
+		ansTop++;//变为ans[1];
+		return;//退出第k层迭代（------------！！！！-----------）
+	}
+	int j;
+	for (j = startIndex; j <= n; j++)//递归
+
+		//也可以改成for(j=startIndex;j<n-k+pathtop+1;j++)//值可以凑，更快
+	{
+		//把当前节点放入path数组
+		path[pathTop] = j;
+		pathTop++;
+		backtracking(n, k, j + 1);
+		//上一层刚return回来，就要进行回溯
+		pathTop--;//进行回溯，将数组最上层节点弹出
+	}
+}
+
+int** combine(int n, int k, int* returnSize, int** returnColumnSizes)
+{
+	path = (int*)malloc(k*sizeof(int));//path的存储标准与temp相同
+	//k*sizeof(...)说明存储量为k个
+	ans = (int**)malloc(10000 * sizeof(int*));//存指针的数组
+	pathTop = ansTop = 0;//确定初值
+
+	backtracking(n, k, 1);
+	//返回ans数组
+	*returnSize = ansTop;//ansTop要动态变化
+	*returnColumnSizes = (int*)malloc((*returnSize) * sizeof(int));
+	//存储一列的容量
+	int i;
+	for (i = 0; i < *returnSize; i++)
+	{
+		(*returnColumnSizes)[i] = k;
+	}
+	return ans;
+}
