@@ -412,3 +412,42 @@ int** combine(int n, int k, int* returnSize, int** returnColumnSizes)
 	}
 	return ans;
 }
+
+//移动窗口
+//209题
+
+int minSubArrayLen(int target, int* nums, int numsSize)
+{
+	int minSize = numsSize+1;//注意
+	int len = 0;
+	int i = 0;
+	int sum = 0;
+	//考虑终止条件
+	int sumTest = 0;
+	for (int k = 0; k < numsSize; k++)
+	{
+		sumTest += nums[k];
+	}
+	if (sumTest < target)
+	{
+		return 0;
+	}
+	for (int j = 0; j < numsSize; j++)
+	{
+		sum += nums[j];//只加一项
+		//求出j不动时，i的最大值
+		while (sum >= target)
+		{	
+			len = j - i + 1	;
+			if (minSize >= len)
+			{
+				minSize = len;
+			}
+			sum -= nums[i];
+			i++;
+		}
+		
+		//希望小于目标值就会被舍弃
+	}
+	return minSize;
+}
