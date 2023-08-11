@@ -567,3 +567,49 @@ int** generateMatrix(int n, int* returnSize, int** returnColumnSizes)
 		return arr;
 	}
 }
+
+//203题
+struct ListNode
+{
+	int val;
+	struct ListNode* next;
+};
+struct ListNode* removeElements(struct ListNode* head, int val)
+{
+	struct ListNode* temp;
+	/*if (head == NULL)
+	{
+		return head;
+	}*/
+	//只是处理头结点的数据，处理完并未结束
+	while (head&&head->val == val)
+		//逻辑判断顺序，1不过2不看,在这里无影响
+	{
+		temp = head;
+		head = head->next;//head已经改变，所以需要提前存储之前的,用temp
+		free(temp);
+
+	}
+	//注意，这是单项链表,无 pro
+	struct ListNode* current=head;
+	while (current&&(temp=current->next))
+//while (head->next&&head) 和 while (head&&head->next) 是有区别的
+//前者先判断 head->next 是否为非空，再判断 head 是否为非空。
+//后者先判断 head 是否为非空，再判断 head->next 是否为非空。
+		//head->next->next为空也没事
+		//current无论选择if/else都一直在迭代更新
+	{
+		if (temp->val == val)
+		{
+			current->next = current->next->next;
+			//head->next已经改变，所以需要提前存储之前的,用current
+			free(temp);
+		}
+		//因为还要循环，但不能改变head的值（还要返回他）
+		else
+		{
+			current = current->next;//current变化，head没变
+		}	
+	}
+	return head;
+}
