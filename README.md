@@ -451,3 +451,119 @@ int minSubArrayLen(int target, int* nums, int numsSize)
 	}
 	return minSize;
 }
+
+//移动窗口
+//3题
+int lengthOfLongestSubstring(char*s)
+{
+	int left, right = 0;
+	int cnt, result = 0;//记录当前值和结果值
+	int temp[128] = { 0 };
+	int slen = strlen(s);//128位数组存储子串中任意字符
+	while (right<slen)
+	{
+		if (temp[s[right]] == 0)
+		{
+			temp[s[right]] = 1;
+			right++;
+			cnt++;
+			result = cnt > result ? cnt : result;//比较
+		}
+		else
+		{
+			temp[s[left]] = 0;//因为在循环之初，左指针与右指针对应的值相等
+			left++;
+			cnt--;//最初肯定是一，删成0之后还会加成一
+		}
+	}
+	return result;
+}
+
+//59题（螺旋矩阵）
+int** generateMatrix(int n, int* returnSize, int** returnColumnSizes)
+{
+	*returnSize = n;
+	*returnColumnSizes = (int*)malloc(n * sizeof(int));
+	int** arr = (int**)malloc(400 * sizeof(int*));
+	for (int i = 0; i < n; i++)
+	{
+		arr[i] = (int*)malloc(n * sizeof(int));
+		(*returnColumnSizes)[i] = n;
+	}
+	//标定循环次数(一轮循环消去两行)!!!
+	int times = 0;
+	//发现起始横纵坐标很重要
+	int x = 0;
+	int y = 0;
+	//发现边界频繁出现，所以必须设置参数
+	int xmax = n - 1;
+	int ymax = n - 1;
+	//要遵循左闭右开的要求来达成循环
+	if (n % 2 == 0)
+	{
+		int num = 1;
+		while ((times < n / 2)&&(num<n*n+1))//记住一轮循环哪些值发生了变化
+		{
+			for (x=times,y=times; x < xmax; x++)//x<n-1是为了留头去尾
+			{
+				arr[x][y] = num;
+				num++;
+			}
+			for (x=xmax,y; y < ymax; y++)
+			{
+				arr[x][y] = num;
+				num++;
+			}
+			for (y=ymax,x; times<x ; x--)
+			{
+				arr[x][y] = num;
+				num++;
+			}
+			for (x=times,y; times<y; y--)
+			{
+				arr[x][y] = num;
+				num++;
+			}
+			xmax--;
+			ymax--;
+			times++;
+		}
+
+		return arr;
+	}
+	else
+	{
+		int num = 1;
+		while ((times < n / 2) && (num < n * n + 1))
+		{
+			for (x = times, y = times; x < xmax; x++)//x<n-1是为了留头去尾
+			{
+				arr[x][y] = num;
+				num++;
+			}
+			for (x = xmax, y; y < ymax; y++)
+			{
+				arr[x][y] = num;
+				num++;
+			}
+			
+			for (y = ymax, x; times < x; x--)
+			{
+				arr[x][y] = num;
+				num++;
+			}
+			
+			for (x = times, y; times < y; y--)
+			{
+				arr[x][y] = num;
+				num++;
+			}
+			xmax--;
+			ymax--;
+			times++;
+		}	
+		//最后一项单独赋值
+		arr[(n - 1) / 2][(n - 1) / 2] = n * n;
+		return arr;
+	}
+}
