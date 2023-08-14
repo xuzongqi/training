@@ -1,5 +1,5 @@
 # training
-力扣算法第一题
+#力扣算法第1题
 
 
 
@@ -28,7 +28,32 @@ int* twoSum(int* nums, int numsSize, int target, int* returnSize)
 	return NULL;//忘记考虑不存在情况
 }
 
-#力扣算法第二题
+二刷
+int* twoSum(int* nums, int numsSize, int target, int* returnSize)
+{
+	*returnSize = 2;
+	int* arr = (int*)malloc(2 * sizeof(int));
+	int i, j;
+	for (i = 0; i < numsSize; i++)
+//若写为i<j，在初始化时，j 的值还没有被赋予（处于上一个循环的值），会导致未定义。
+	{
+		for (j = i + 1; j < numsSize; j++)
+//需要将初始化 j 的操作移动到循环体内（for循环第一个式子一定为j=...）
+		{
+			if (target == nums[i] + nums[j])
+			{
+				arr[0] = i;
+				arr[1] = j;
+				return arr;
+			}
+		}
+	}
+	//为空则要释放arr的内存，并返回空
+	free(arr);
+	return NULL;
+}
+
+#力扣算法第2题
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
