@@ -638,3 +638,57 @@ struct ListNode* removeElements(struct ListNode* head, int val)
 	}
 	return head;
 }
+
+
+#力扣算法第206题
+struct ListNode
+{
+	int val;
+	struct ListNode* next;
+};
+
+//双指针法
+struct ListNode* reverseList(struct ListNode* head)
+{
+	//先在头结点变化
+	struct ListNode* post = (struct ListNode*)malloc(sizeof(struct ListNode));
+	struct ListNode* current = (struct ListNode*)malloc(sizeof(struct ListNode));
+	post = NULL;
+	current = head;
+	//生成替罪羊temp
+	struct ListNode* temp = (struct ListNode*)malloc(sizeof(struct ListNode));
+	//temp = current->next;//不知cuurrent有无下一个的值
+	//画图发现current就是修改后的头结点
+	while (current)
+	{
+		temp = current->next;
+		current->next = post;
+		post = current;
+		current = temp;
+	}
+	//若current->next==NULL，又因current=current->next，NULL不能做头结点
+	return post;
+}
+
+//递归法
+struct ListNode* reverse(struct ListNode* post, struct ListNode* current)
+{
+	if (!current)
+	{
+		return post;
+	}
+	else
+	{
+		//生成替罪羊temp
+	/*	struct ListNode* temp = (struct ListNode*)malloc(sizeof(struct ListNode));*/
+		struct ListNode* temp = current->next;
+		current->next = post;
+		/*post = current;*/
+		/*current = temp;*/
+		return reverse(current,temp);
+	}
+}
+struct ListNode* reverseList(struct ListNode* head)
+{
+	return reverse(NULL, head);
+}
