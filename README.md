@@ -593,7 +593,8 @@ int** generateMatrix(int n, int* returnSize, int** returnColumnSizes)
 	}
 }
 
-//203题
+
+#力扣算法第203题
 struct ListNode
 {
 	int val;
@@ -639,6 +640,37 @@ struct ListNode* removeElements(struct ListNode* head, int val)
 	return head;
 }
 
+方法二，虚拟头结点法
+struct ListNode
+{
+	int val;
+	struct ListNode* next;
+};
+
+struct ListNode*removeElements(struct ListNode*head,int val)
+{
+	//创建虚拟头结点
+	struct ListNode* dummyhead = (struct ListNode*)malloc(sizeof(struct ListNode));
+	dummyhead->next = head;
+	//遍历需要(而且删掉current对head有影响)
+	struct ListNode* current = dummyhead;
+	while (current->next)
+	{
+		if (current && current->next->val == val)
+		{
+			//替罪羊
+			struct ListNode* temp = current->next;
+			current->next = current->next->next;
+			free(temp);
+		}
+		//通盘考虑后
+		else
+		{
+			current = current->next;
+		}
+	}
+	return dummyhead->next;
+}
 
 #力扣算法第206题
 struct ListNode
