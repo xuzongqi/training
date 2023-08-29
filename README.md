@@ -752,3 +752,23 @@ int fib(int n)
 	//打印数组检验
 }
 
+#力扣算法第70题
+int climbStairs(int n)
+{
+	//确定dp数组含义，dp[i]表示到第i级台阶能用的不同方法
+	int dp[47];
+	dp[1] = 1;
+	dp[2] = 2;
+	if (n == 1)return 1;
+	else if (n == 2)return 2;
+	else
+	{
+		//递推公式:dp[i]=dp[i-1]+dp[i-2];
+		for (int i = 3; i < n+1; i++)
+		{
+			dp[i] = dp[i - 1] + dp[i - 2];
+		}
+	}
+	return dp[n];
+}
+
