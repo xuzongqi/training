@@ -724,3 +724,31 @@ struct ListNode* reverseList(struct ListNode* head)
 {
 	return reverse(NULL, head);
 }
+
+#-----动态规划--------------------------------------------------------------
+#力扣算法第509题
+int fib(int n)
+{
+	//确定dp数组含义，dp[i]是第i个项，dp[i]为第i个数组值,
+	int dp[32];
+	dp[0] = 0;
+	dp[1] = 1;
+
+	//终止条件
+	if (n == 0)return 0;
+	else if (n == 1)return 1;
+
+	//递推公式 dp[n]=dp[n-1]+dp[n-2];
+	else
+	{
+		//遍历顺序，由后向前
+		//dp数组初始化
+		for (int i = 2; i < n+1; i++)
+		{
+			dp[i] = dp[i - 1] + dp[i - 2];
+		}
+	}
+	return dp[n];
+	//打印数组检验
+}
+
