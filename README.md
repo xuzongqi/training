@@ -803,3 +803,55 @@ int minCostClimbingStairs(int* cost, int costSize)
 	return dp1;
 }
 
+#力扣算法第62题
+int uniquePaths(int m, int n)
+{
+	if (m == 1 && n == 1)
+	{
+		return 1;
+	}
+	//dp数组含义,dp[i][j],到（i，j）的不同路数
+	int dp[102][102];
+	//递归方式
+	//初始值
+	dp[0][0] = 0;
+	
+	//特殊：要给一列，一行全补上初始值
+	
+	//注意：延每一列、行只有一种走法（勿忘dp数组的含义）
+	for (int j = 1; j < m; j++)
+	{
+		dp[0][j] = 1;
+	}
+	for (int i = 1; i < n; i++)
+	{
+		dp[i][0] = 1;
+	}
+
+	//问题：排列边界不等长，要用不同边界判断标准
+	/*for (int i = 1, j = 1; (i < n)&& (j < m); i++, j++)
+	{
+		dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+	}*/
+
+	int i = 1;
+	int j = 1;
+	
+		//遍历顺序 重点：二维数组的遍历
+	for (i=1; i < n; i++)
+	{
+		//不重置j的值，每次i循环j就不会变了
+		for (j=1; j < m; j++)
+		{
+			dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+		}
+	}
+	return dp[n - 1][m - 1];
+}
+
+int main()
+{
+	//打印结果
+	printf("%d", uniquePaths(7,3 ));
+	return 0;
+}
