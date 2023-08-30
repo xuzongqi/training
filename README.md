@@ -772,3 +772,34 @@ int climbStairs(int n)
 	return dp[n];
 }
 
+#力扣算法第746题
+
+一刷
+int minCostClimbingStairs(int* cost, int costSize)
+{
+	//定价格
+	int totalCost = 0;
+	int dp[1002];
+
+	//dp数组含义:dp[i]指到第i层的花费
+	//递归
+	/*dp[0] = 0;
+	dp[1] = 0;*/
+	//初值,不用for循环（不用算每一层的值）
+	//for (int i = 2; i < costSize+2; i++)
+	//{
+	//	dp[i] = dp[i - 2] + cost[i - 2] > dp[i - 1] + cost[i - 1] ? dp[i - 2] + cost[i - 2] : dp[i - 1] + cost[i - 1];
+	//}
+
+	//从第0层出发和从第1层出发
+	int dp0 = 0;
+	int dp1 = 0;
+	for (int i = 2; i < costSize+1; i++)
+	{
+		int dpi = dp0 + cost[i - 2] > dp1 + cost[i - 1] ? dp1 + cost[i - 1] : dp0 + cost[i - 2];
+		dp0 = dp1;
+		dp1 = dpi;
+	}
+	return dp1;
+}
+
