@@ -855,3 +855,29 @@ int main()
 	printf("%d", uniquePaths(7,3 ));
 	return 0;
 }
+
+
+-------------------------------------------------------哈希表----------------------------------
+#力扣算法第1478题
+int sumOfUnique(int* nums, int numsSize)
+{
+	//哈希表精髓：hash[arr[i]]意为存储arr[i]这个值出现的次数
+	int hash[102];
+	memset(hash, 0, sizeof(hash));//把哈希表所有位变为0（sizeof(hash)不可改为numsSize）
+	for (int i = 0; i < numsSize; i++)
+	{
+		hash[nums[i]]++;
+		printf("hash[nums[%d]]=%d\n", i, hash[nums[i]]);
+	}
+	//求和
+	int sum = 0;
+	//j的范围是nums数组项的最大值
+	for (int j = 0; j < 101; j++)
+	{
+		if (hash[j] == 1)
+		{
+			sum += j;
+		}
+	}
+	return sum;
+}
