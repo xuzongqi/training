@@ -881,3 +881,30 @@ int sumOfUnique(int* nums, int numsSize)
 	}
 	return sum;
 }
+
+#力扣算法第242题
+bool isAnagram(char* s, char* t)
+{
+	char hashs[26];
+	char hasht[26];
+	memset(hashs, 0, sizeof(hashs));
+	memset(hasht, 0, sizeof(hasht));
+	for (int i = 0; i < strlen(s); i++)
+	{
+		//压缩大小
+		hashs[s[i]-'a']++;
+	}
+	for (int i = 0; i < strlen(t); i++)
+	{
+		hasht[t[i]-'a']++;
+	}
+	//哈希数组的大小
+	for (char j = 0; j < 26; j++)
+	{
+		if (hashs[j] != hasht[j])
+		{
+			return false;
+		}
+	}
+	return true;
+}
