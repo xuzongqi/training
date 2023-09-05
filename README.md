@@ -908,3 +908,32 @@ bool isAnagram(char* s, char* t)
 	}
 	return true;
 }
+
+#力扣算法第1题
+class Solution
+{
+public:
+	vector<int>twoSum(vector<int>& nums, int target)
+	{
+		std::unordered_map<int, int>map;
+		for (int i = 0; i < nums.size(); i++)
+		{
+			//遍历当前元素，并在map中寻找是否有匹配的k
+			//auto:根据后面的值判断变量的类型（目的：简化变量初始化过程）
+			//eg.	auto x1=5
+			auto iter = map.find(target - nums[i]);
+			//如果iter的值在map中有相等的项
+	//map.end() 返回一个特殊的迭代器，指向映射的结尾位置的下一个位置。
+			//它并不指向有效的元素，主要用于表示不存在的情况。
+			if (iter != map.end())
+			{
+				//因为题目中说只有一个符合条件
+			//i是被判断元素的下标，iter->second是因为数组第i项下标为i-1
+				return { i,iter->second };
+			}
+			//向map里插入项，便于之后找到合适的
+			map.insert(pair<int, int>(nums[i], i));
+		}
+		return {};
+	}
+};
