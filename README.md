@@ -998,3 +998,15 @@ public:
 		return res;
 	}
 };
+
+int main()
+{
+	vector<int>nums = { -1,0,1,2,-1,-4 };
+	Solution solution; // 创建 Solution 对象
+	vector<vector<int>> result = solution.threeSum(nums); // 调用成员函数获取结果
+	for (int i = 0; i < 3; i++)
+	{
+		printf("%d  ",result[i]);
+	}
+	;
+}
