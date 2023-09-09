@@ -937,3 +937,64 @@ public:
 		return {};
 	}
 };
+
+#力扣算法第15题
+class Solution
+{
+public:
+	vector<vector<int>> threeSum(vector<int>&nums)
+	{
+		int begin, left, right;
+		vector<vector<int>>res;
+		//先排好序(从小到大)，事半功倍
+		for (int i = 0; i < nums.size()-1; i++)
+		{
+			for (int j = i + 1; j < nums.size(); j++)
+			{
+				if (nums[i] >= nums[j])
+				{
+					int temp = nums[i];
+					nums[i] = nums[j];
+					nums[j] = temp;
+				}
+			}
+		}
+
+		for (int i = 0; i < nums.size(); i++)
+		{
+			//排序后第一个元素>0，那么直接返回空
+			if (nums[i] > 0)return res;
+			//
+			if (i > 0 && nums[i] == nums[i - 1])continue;
+			
+			if (nums[begin] > 0)
+			{
+				return res;
+			}
+			left = i+1;
+			right = nums.size() - 1;
+			while (right > left)
+			{
+				if (nums[i] + nums[left] + nums[right] > 0)
+				{
+					right--;
+				}
+				else if (nums[i] + nums[left] + nums[right] < 0)
+				{
+					left++;
+				}
+				else
+				{
+					res.push_back(vector<int>{nums[i], nums[left], nums[right]});
+					//去重
+					while (right > left && nums[right] == nums[right - 1])right--;
+					while (right > left && nums[left] == nums[left + 1])left--;
+
+					right--;
+					left++;
+				}
+			}
+		}
+		return res;
+	}
+};
