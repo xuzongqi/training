@@ -1010,3 +1010,34 @@ int main()
 	}
 	;
 }
+
+#力扣算法第541题
+class Solution
+{
+public:
+	string reverseStr(string s, int k)
+	{
+		for (int i = 0; i < s.size(); i += 2 * k)
+		{
+		/*	int* num;
+			*num = k;
+			char* cur = (char*)malloc((*num) * sizeof(char));
+			for (i; i < k+i; i++)
+			{
+				cur[i] = s[i];
+			}*/
+			//尾部不超出
+			if (i + k <= s.size())
+			{
+				/*swap(k个);的高级用法*/
+				reverse(s.begin()+i,s.begin()+i+k);
+			//continue终止本次循环，进行接下来的循环（所以i+=2不能放下面）
+				continue;
+			}
+			//尾部超出（只取剩余部分的）
+			//!!!
+			reverse(s.begin() + i, s.end());
+		}
+		return s;
+	}
+};
