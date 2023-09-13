@@ -1090,3 +1090,47 @@ public:
 		return buffer.empty();
 	}
 };
+
+#力扣算法第1047题
+class Solution
+{
+public:
+	string removeDuplicates(string s)
+	{
+		stack<char>tar;
+		//times用来计数，算出栈的初始容量
+		int times = 0;
+		for (int i = 0; i < s.size(); i++)
+		{
+			if (tar.empty())
+			{
+				tar.push(s[i]);
+				times++;
+				continue;
+			}
+			char top = tar.top();
+			if (top == s[i])
+			{
+				tar.pop();
+				times--;
+				continue;
+			}
+			tar.push(s[i]);
+			times++;
+		}
+		//栈转字符串
+		string res;
+		if (tar.empty())
+		{
+			return res;
+		}
+		for (int i = 0; i < times; i++)
+		{
+			//取出栈的顶部值
+			res.push_back(tar.top());
+			tar.pop();
+		}
+		reverse(res.begin(),res.end());
+		return res;
+	}
+};
