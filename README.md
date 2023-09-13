@@ -1041,3 +1041,52 @@ public:
 		return s;
 	}
 };
+
+
+----------------------------------------------------栈  ------------------------------------------------------------
+#力扣算法第20题
+class Solution
+{
+public:
+	bool isValid(string s)
+	{
+		//设置栈
+		stack<char>buffer;
+		
+		//对进栈的每一个数据进行条件判断
+		for (int i = 0; i < s.size(); i++)
+		{
+			
+			if (buffer.empty())
+			{
+				buffer.push(s[i]);
+				//完成后立即不执行接下来的语句
+				continue;
+			}
+
+			//这行代码在栈 buffer 是空的时候就会造成错误。当栈为空时调用 top() 函数将导致未定义行为。
+			// 因此，在访问栈顶元素之前，应该先检查栈是否为空。
+			// 
+			//这在内部定义，保证每一次循环都取buffer的新top
+			char top = buffer.top();
+			//配对后就出栈
+			if (s[i] == ')' && top == '(' 
+				|| s[i] == ']' && top == '[' 
+				|| s[i] == '}' && top == '{')
+			{
+				buffer.pop();
+				continue;
+			}
+
+			//s[i]=='{','[','('
+			else
+			{
+				buffer.push(s[i]);
+				
+				//top++;//不需要，因为push会直接把新的s[i]
+			}
+			
+		}
+		return buffer.empty();
+	}
+};
