@@ -1134,3 +1134,37 @@ public:
 		return res;
 	}
 };
+
+
+-----------------------------------------------------------二叉树--------------------------------------------------
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+						迭代法
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        stack<TreeNode*> st;
+        vector<int> result;
+        if (root == NULL) return result;
+        st.push(root);
+   //每一次循环，都会把该节点的左右结点压入栈，而压入栈的栈顶又会充当树的中间结点
+        while (!st.empty()) {
+            TreeNode* node = st.top();// 中
+								//弹出尾结点
+            st.pop();
+            result.push_back(node->val);
+            if (node->right) st.push(node->right);           // 右（空节点不入栈）
+            if (node->left) st.push(node->left);             // 左（空节点不入栈）
+        }
+        return result;
+    }
+};
