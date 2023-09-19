@@ -1135,6 +1135,36 @@ public:
 	}
 };
 
+#力扣算法第3题
+class Solution
+{
+public:
+	int lengthOfLongestSubstring(string s)
+	{
+		unordered_set<char>vec;
+		int left = 0;
+		int right = 0;
+		int res = 0;//取max
+		if (s.empty())return 0;
+		/*vec.insert(s[0]);难点：不能多插入*/
+		while (right<s.size())
+		{
+			//不存在
+			if (vec.find(s[right]) == vec.end())
+			{
+				vec.insert(s[right++]);
+				res = max(res, right - left);
+			}
+			else
+			{
+				//key
+				vec.erase(s[left++]);
+			
+			}
+		}
+		return max(res, right - left);
+	}
+};
 
 -----------------------------------------------------------二叉树--------------------------------------------------
 /**
@@ -1167,4 +1197,7 @@ public:
         }
         return result;
     }
+
 };
+
+
