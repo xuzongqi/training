@@ -1241,3 +1241,44 @@ public:
         return res;
 	}
 };
+
+#力扣算法第226题
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root)
+    {
+        //存储
+        queue<TreeNode*>que;
+        if (root == NULL)return NULL; 
+        //!!!不需要的操作，因为root的指向可以通过cur
+       /* TreeNode* res = root;*/
+        
+        que.push(root);
+        /*while (cur)*/
+        while (!que.empty())
+        {
+            int size = que.size();
+            for (int i = 0; i < size; i++)
+            {
+                //!!!便于que顶部弹出后操作
+                TreeNode* cur = que.front();
+                que.pop();
+                //!!!可以改变指针的值
+                swap(cur->left, cur->right);
+                if (cur->left)
+                {
+                    //!!!上下结合来看，两个操作是平行的，会使cur的值发生cur->left->right的改变
+                    /*cur = cur->left;*/
+                    que.push(cur->left);
+                }
+                if (cur->right)
+                {
+                    //!!!上下结合来看，两个操作是平行的，会使cur的值发生cur->left->right的改变
+                    /*cur = cur->right;*/
+                    que.push(cur->right);
+                }
+            }
+        }
+        return root;
+    }
+};
