@@ -1200,4 +1200,44 @@ public:
 
 };
 
-
+#力扣算法第102题
+ struct TreeNode {
+      int val;
+      TreeNode *left;
+      TreeNode *right;
+      TreeNode() : val(0), left(nullptr), right(nullptr) {}
+      TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+      TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ };
+ 
+class Solution {
+public:
+	vector<vector<int>> levelOrder(TreeNode* root) {
+        //构建队列
+        queue<TreeNode*>que;
+        //树为空，返回空
+        if (root != NULL)que.push(root);
+        //返回的数组为二维数组，每一行的元素数量不同，取决于循环的轮数
+        vector<vector<int>>res;
+        while (!que.empty())
+        {
+            vector<int>vec;
+            //!!!要会使用迭代，因为每一层数组存储的数目不同
+            //!!!这里一定要用固定大小的size，因为que.size()不断变化的。
+            int size = que.size();
+            for (int i = 0; i < size; i++)
+            {
+                //!!!每次都会取动态的顶部
+                TreeNode* node = que.front();
+                vec.push_back(node->val);
+                //弹出顶部的值
+                que.pop();
+                //!!!前提是含有这个值
+                if(node->left)que.push(node->left);
+                if (node->right)que.push(node->right);
+            }
+            res.push_back(vec);
+        }
+        return res;
+	}
+};
