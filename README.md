@@ -2,7 +2,6 @@
 #力扣算法第1题
 
 
-
 int* twoSum(int* nums, int numsSize, int target, int* returnSize)
 {
 	for (int i = 0; i < numsSize; i++)
@@ -52,6 +51,7 @@ int* twoSum(int* nums, int numsSize, int target, int* returnSize)
 	free(arr);
 	return NULL;
 }
+
 三刷
 class Solution {
 public:
