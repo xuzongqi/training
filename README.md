@@ -52,6 +52,30 @@ int* twoSum(int* nums, int numsSize, int target, int* returnSize)
 	free(arr);
 	return NULL;
 }
+三刷
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target)
+    {
+        unordered_map<int,int>map;
+        vector<int>res;
+        for(int i=0;i<nums.size();i++)
+        {
+            auto iter=map.find(target-nums[i]);//找下标,iter蕴含两个下标（二维数组）
+            if(iter!=map.end())
+            {
+                res.push_back(iter->second);
+                res.push_back(i);//vector多用push_back
+                return res;
+            }
+            else
+            {
+                map.insert(pair<int,int>(nums[i],i));//必须先注明pair才能插入
+            }
+        }
+        return res;
+    }
+};
 
 #力扣算法第2题
 
